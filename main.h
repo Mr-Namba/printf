@@ -9,3 +9,8 @@
 int _printf(const char *format, ...);
 int *check_specifier(int i, char *copyfmt, va_list args);
 
+
+int _putchar(char *c);
+int *_strlen(char *s);
+char *_strcpy(char *dest, const char *str);
+#endif
