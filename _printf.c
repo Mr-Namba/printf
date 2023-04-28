@@ -1,46 +1,44 @@
 #include "main.h"
 /**
- * _printf - the printf function
- * @format: format string
- * Return: number of printed characters
- */
+ * _printf - A printf clone
+ * @format: const pointer to a char - % include formats
+ * Return: number of characters printed.
+*/
 int _printf(const char *format, ...)
 {
-	int i;
-	int *tnc_printed;
-	int *snc_printed;
-	int tnc_ar[2];
-	int snc_ar[2];
-	char *cp_fmt;
-	char sc_fmt[100000];
+	int i = 0, *count, *count3;
+	int ctbuffer[2];
+	int ctbuffer3[2];
+	char *copyfmt;
+	char copyarray[10000];
 	va_list args;
 
-	tnc_printed = &tnc_ar[0];
-	snc_printed = &snc_ar[0];
-	tnc_printed[0] = 0;
-	tnc_printed[1] = -1;
-
+	count = &ctbuffer[0];
+	count3 = &ctbuffer3[0];
+	count[0] = 0;
+	count[1] = -1;
 	if (format != NULL)
 	{
-		tnc_printed[1] = 0;
-		cp_fmt = _strcpy(sc_fmt, format);
+		count[1] = 0;
+		copyfmt = _strcpy(copyarray, format);
 		va_start(args, format);
-		for (i = 0; cp_fmt[i] != '\0'; i++)
+		while (copyfmt[i] != '\0')
 		{
-			if (cp_fmt[i] == '%')
+			if (copyfmt[i] == '%')
 			{
-				snc_printed = check_specifier(i, cp_fmt, args);
-				if (snc_printed[1] == -1)
-					return (-1);
-				tnc_printed[1] += snc_printed[1];
-				i += snc_printed[0];
+				count3 = check_specifier(i, copyfmt, args);
+				if (count3[1] == -1)
+				return (-1);
+				count[1] += count3[1];
+				i += count3[0];
 			}
 			else
 			{
-				tnc_printed[1] += _putchar(&cp_fmt[i]);
+				count[1] += _putchar(&copyfmt[i]);
 			}
+			i++;
 		}
 		va_end(args);
 	}
-	return (tnc_printed[1]);
+return (count[1]);
 }
